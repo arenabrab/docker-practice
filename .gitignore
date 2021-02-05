@@ -10,3 +10,4 @@
 /build/
 /.gradle/
 /classes/
+/id_rsa
