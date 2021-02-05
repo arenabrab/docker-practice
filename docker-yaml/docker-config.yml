@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: docker-config
+  config:
+    name: docker-config
+  kafka:
+    bootstrap-servers:
+      - docker-kafka:9092
+  profiles:
+    active: local
+server:
+  port: 8888
+
+---
+
+spring:
+  profiles:
+    active: dev

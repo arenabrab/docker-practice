@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: docker-server
+  cloud:
+    config:
+      uri: http://docker-config:8888

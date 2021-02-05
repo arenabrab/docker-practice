@@ -1,0 +1,113 @@
+version: "3"
+services:
+  mongo:
+    image: mongo
+    volumes:
+      - demo-mongo:/data/db
+    container_name: docker-mongo
+
+  eureka-server:
+    image: barbanera/eureka-test
+    ports:
+    - 8761:8761
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    container_name: eureka-server
+
+  docker-config:
+    image: barbanera/docker-config
+    ports:
+      - 8888:8888
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    container_name: docker-config
+
+  docker-server:
+    image: barbanera/docker-test
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongo
+      SPRING_PROFILES_ACTIVE: local
+    container_name: docker-server
+    depends_on:
+      - kafka
+
+  docker-client:
+    image: barbanera/docker-client
+    ports:
+    - 9090:9090
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    container_name: docker-client
+    depends_on:
+      - kafka
+
+  zookeeper:
+    image: docker.io/bitnami/zookeeper
+    ports:
+      - 2181:2181
+    volumes:
+      - zookeeper_data:/bitnami
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: 'yes'
+    container_name: docker-zookeeper
+
+  kafka:
+    image: docker.io/bitnami/kafka
+    hostname: docker-kafka
+    ports:
+      - 9092:9092
+    volumes:
+      - kafka_data:/bitnami
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+      KAFKA_CREATE_TOPICS: refresh-config:1:1
+    depends_on:
+      - zookeeper
+    container_name: docker-kafka
+
+  docker-hystrix:
+    image: barbanera/docker-hystrix
+    ports:
+    - 7979:7979
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    container_name: docker-hystrix
+    depends_on:
+      - kafka
+
+  docker-turbine:
+    image: barbanera/docker-turbine
+    ports:
+    - 8081:8081
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    container_name: docker-turbine
+    depends_on:
+      - kafka
+
+#  docker-react:
+#    image: barbanera/docker-react
+#    ports:
+#    - 3000:3000
+#    container_name: docker-react
+
+#  docker-sidecar:
+#    image: barbanera/docker-sidecar
+#    container_name: docker-sidecar
+#    ports:
+#    - 3001:3001
+#    environment:
+#      SPRING_PROFILES_ACTIVE: local
+#      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka
+#      ZUUL_ROUTES_FRONTEND_URL: http://docker-react:3000
+
+
+volumes:
+ demo-mongo:
+ zookeeper_data:
+   driver: local
+ kafka_data:
+   driver: local

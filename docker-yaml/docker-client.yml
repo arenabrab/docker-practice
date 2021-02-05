@@ -1,0 +1,20 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - docker-kafka:9092
+  profiles:
+    active: local
+server:
+  port: 9090
+base:
+  uri:
+    server: http://docker-server
+andrew:
+    password: '{cipher}514e24e9391f6aab4309659b90dd2e73f421f8df704d2dc723354b58fb87f577'
+    passwordtwo: '{cipher}8ed88f214f7ae995ecd54f4ef4ce320acc7937cec10073e593ef79a0885de954'
+
+---
+
+spring:
+  profiles:
+    active: dev

@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    bootstrap-servers:
+      - docker-kafka:9092
+  profiles:
+    active: local
+server:
+  port: 8081
+
+turbine:
+  app-config: docker-server, docker-client
+  cluster-name-expression: "'default'"
+
+
+---
+
+spring:
+  profiles:
+    active: dev

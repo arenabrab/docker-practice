@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+  background-color: #DADEE5;
+
+  height: 100%;
+}
+
+.classes-root {
+  flex-grow: 1;
+  display: flex;
+}
+
+.classes-tabs {
+  border-right: 1px solid;
+}
+
+.icon-button {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  max-height: 99vh;
+}
+
+.app-paper {
+  background-image: url("./static/images/cards/jewelry.jpg");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  height: 740px;
+}
+
+.product-card {
+  max-width: 20vh;
+  max-height: 25vh;
+}
+

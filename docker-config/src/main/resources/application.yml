@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: docker-config
+  config:
+    name: docker-config
+  profiles:
+    active: local
+  cloud:
+    config:
+      server:
+        git:
+          uri: ssh://git@github.com/arenabrab/docker-config
+          strict-host-key-checking: false
+  kafka:
+    bootstrap-servers: docker-kafka:9092
+server:
+  port: 8888
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka

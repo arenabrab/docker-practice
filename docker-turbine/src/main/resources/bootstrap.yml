@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: docker-turbine
+  cloud:
+    config:
+      uri: http://docker-config:8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,hystrix.stream,health,info
