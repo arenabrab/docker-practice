@@ -1,5 +1,0 @@
-Host git-config
-    HostName github.com
-    User andrewbarbanera@gmail.com
-    IdentityFile /root/.ssh/id_rsa
-    StrictHostKeyChecking no
